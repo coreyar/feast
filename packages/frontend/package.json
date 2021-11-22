@@ -1,0 +1,51 @@
+{
+  "name": "feast-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "cypress run-ct",
+    "eject": "react-scripts eject",
+    "deploy": "aws2 s3 sync build/ s3://$FEAST_DOMAIN",
+    "cypress:open": "cypress open-ct",
+    "tsc": "tsc",
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "3.34.0",
+    "@aws-sdk/client-s3": "3.41.0",
+    "@aws-sdk/credential-provider-cognito-identity": "3.34.0",
+    "dotenv": "^10.0.0",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "@cypress/react": "^5.10.3",
+    "@cypress/webpack-dev-server": "^1.7.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.7",
+    "@types/react": "^17.0.35",
+    "@types/react-dom": "^17.0.11",
+    "cypress": "^9.0.0",
+    "html-webpack-plugin": "4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

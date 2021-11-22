@@ -1,0 +1,38 @@
+.float-label-field {
+    border: none;
+    outline: none;
+    position: relative;
+    margin: 20px 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.float-label-field input {
+    border: none;
+    outline: none;
+    padding: 5px 5px 8px 0px;
+    width: 100%;
+    font-size: 18px;
+    border-bottom: solid 1px #efefef;
+}
+
+.float-label-field label {
+    opacity: 0.0;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    transition: all 0.2s ease;
+    font-size: 18px;
+}
+
+.float-label-field.float label {
+    opacity: 1;
+    top: -6px;
+    font-size: 60%;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.error {
+    color: #d32f2f;
+}

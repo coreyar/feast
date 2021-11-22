@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.app {
+  text-align: center;
+  background-color: rgb(243, 239, 233);
+  padding: 50px;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: rgb(3, 25,36);
+  color: rgb(255, 255, 255);
+  padding: 30px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 150px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  font-family: 'Bebas Neue', cursive;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.menu {
+  padding: 150px 50px 50px;
+  border:rgb(3, 25,36) solid 5px;
+  position: relative;
+}
+
+.footer {
+  background-color: rgb(3, 25,36);
+  color: rgb(255, 255, 255);
+  padding: 15px;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80px;
+  min-width: 300px;
+  h4 {
+    margin: 0;
+    font-family: 'Bebas Neue', cursive;
+  }
+  h5 {
+    margin: 10px 0;
+  }
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+  float: right; 
+}

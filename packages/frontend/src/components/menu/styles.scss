@@ -1,0 +1,47 @@
+.component__menu {
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h3 {
+        margin-bottom: 4px;
+    }
+    p {
+        margin: 0;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2em;
+        width: 400px;
+        justify-content: space-around;
+        button {
+            display: flex;
+        }
+    }
+
+    hr {
+        width: 250px;
+    }
+}
+
+
+.dish, .guest {
+    position: relative;
+    .icon {
+        position: absolute;
+        right: -20px;
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.guest {
+    width: 250px;
+    .icon {
+        top: 0;
+        right: -20px;
+    }
+}

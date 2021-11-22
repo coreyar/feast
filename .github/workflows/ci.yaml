@@ -1,0 +1,20 @@
+name: End-to-end tests
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+        # The Node.js version to configure
+          node-version: 14
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        env:
+          REACT_APP_FEAST_DOMAIN: ${{secrets.REACT_APP_FEAST_DOMAIN}}
+          REACT_APP_REGION: ${{secrets.REACT_APP_REGION}}
+          REACT_APP_IDENTITY_POOL_ID: ${{secrets.REACT_APP_IDENTITY_POOL_ID}}
+        with:
+          command: yarn workspace feast-frontend test

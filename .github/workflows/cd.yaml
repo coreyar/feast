@@ -1,0 +1,32 @@
+name: Release
+on:
+  workflow_run:
+    workflows: ["End-to-end tests"]
+    branches: [master]
+    types: 
+      - completed
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install deps
+        run: yarn
+      - name: Build project
+        run: yarn build
+      - name: Deploy to S3
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          args: s3 sync build/ s3://$REACT_APP_FEAST_DOMAIN
+      - name: Break cloudfront cache
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          args: create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths ${{ secrets.INVALIDATION_PATHS }}

@@ -1,0 +1,33 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest",
+        "plugin:cypress/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "airbnb-typescript"
+    ],
+    "env": {
+        "browser": true,
+        "jest": true,
+        "cypress/globals": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "rules": {
+        "@typescript-eslint/semi": [
+            "error",
+            "never"
+        ],
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js[x]", "**/setupTests.ts"]}],
+        "react/react-in-jsx-scope": "off",
+        "jsx-a11y/click-events-have-key-events": 1,
+        "jsx-a11y/no-noninteractive-element-interactions" :1,
+        "import/prefer-default-export": 0,
+        "max-len": ["error", { "code": 150 }],
+        "react/button-has-type": 0
+    }
+}
