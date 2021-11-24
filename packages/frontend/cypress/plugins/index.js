@@ -24,6 +24,5 @@ module.exports = (on, config) => {
   injectDevServer(on, config)
 
   c.env = { ...c.env, ...process.env }
-  console.log(c.env, process.env)
   return c
 }
