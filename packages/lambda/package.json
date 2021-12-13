@@ -1,0 +1,21 @@
+{
+  "name": "feast-lambda",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "script:build-dependency-layer": "yarn install --prod; ./scripts/build-dependency-layer.sh; yarn install;",
+    "test": "jest",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "mongodb": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.61",
+    "aws-event-mocks": "^0.0.0",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7"
+  }
+}

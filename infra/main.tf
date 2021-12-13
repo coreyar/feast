@@ -1,36 +1,3 @@
-terraform {
-  required_version = "0.14.2"
-  backend "s3" {
-    # bucket: required
-    # key
-    # US East (Northern Virginia)
-    region  = "us-east-2"
-    # profile
-  }
-
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-  }
-}
-
-locals {
-  var = merge(
-    yamldecode(file("main.yaml")),
-    { "app_name_env" = terraform.workspace }
-  )
-}
-
-provider "aws" {
-  region     = "us-east-2"
-}
-
-provider "aws" {
-  alias      = "acm_provider"
-  region     = "us-east-1"
-}
-
 resource "aws_s3_bucket" "static_site" {
   bucket = local.var.domain
   acl    = "public-read"
@@ -71,7 +38,7 @@ resource "aws_s3_bucket" "static_site" {
 }
 
 resource "aws_iam_role" "frontend" {
-  name = "frontend-role"
+  name = "${local.var.project_name}-frontend-role"
 
   assume_role_policy = <<EOF
 {

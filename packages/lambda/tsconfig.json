@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist/function",
+        "isolatedModules": false,
+    },
+    "include": [
+        "src"
+    ]
+}
