@@ -1,10 +1,11 @@
 name: Release
-on:
-  workflow_run:
-    workflows: ["End-to-end tests"]
-    branches: [master]
-    types: 
-      - completed
+on: [push]
+# on:
+#   workflow_run:
+#     workflows: ["End-to-end tests"]
+#     branches: [master]
+#     types: 
+#       - completed
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
