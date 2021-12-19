@@ -15,14 +15,14 @@ resource "aws_iam_access_key" "deployment" {
 resource "aws_iam_role" "manage_lambas" {
   name = "manage_lambdas"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
+    "Version": "2012-10-17",
+    "Statement": [
       {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          AWS = aws_iam_user.deployment.arn
+        "Action": "sts:AssumeRole",
+        "Effect": "Allow",
+        "Sid": "",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
         }
       },
     ]
@@ -43,25 +43,22 @@ output "secret_access_key" {
 
 resource "aws_iam_policy" "lambda_policy" {
   policy = jsonencode({
-    Version = "2012-10-17"
-
-    Statement = [{
-      Effect = "Allow"
-
-      Actions = [
+    "Version" : "2012-10-17",
+    "Statement" : [{
+      "Effect" : "Allow",
+      "Action" : [
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents",
         "cloudwatch:PutMetricData",
-        "kms:*",
-      ]
-
-      Resources = ["*"]
+        "kms:*"
+      ],
+      "Resource": aws_lambda_function.lambda.arn
     }]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_attachment" {
-  role       = aws_iam_role.manage_lambas.name
+resource "aws_iam_user_policy_attachment" "lambda_attachment" {
+  user       = aws_iam_user.deployment.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
