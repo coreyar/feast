@@ -9,8 +9,8 @@ data "archive_file" "function_archive" {
 resource "aws_lambda_layer_version" "dependency_layer" {
   filename            = "./../packages/lambda/dist/layers/layers.zip"
   layer_name          = "dependency_layer"
-  compatible_runtimes = ["nodejs14.x"]
-#   source_code_hash    = base64sha256(file("./../packages/lambda/dist/layers/layers.zip"))
+  compatible_runtimes = ["nodejs12.x"]
+  source_code_hash    = base64sha256(file("./../packages/lambda/yarn.lock"))
 
   depends_on = [null_resource.lambda_nodejs_layer]
 }
@@ -20,13 +20,16 @@ resource "aws_lambda_function" "lambda" {
   function_name = local.var.project_name
   role          = aws_iam_role.manage_lambas.arn
   handler       = "index.handler"
+  source_code_hash    = filebase64sha256(data.archive_file.function_archive.output_path)
+  layers = [aws_lambda_layer_version.dependency_layer.arn]
+
 
   # Lambda Runtimes can be found here: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-  runtime     = "nodejs14.x"
+  runtime     = "nodejs12.x"
   timeout     = "30"
   memory_size = 128
 
-  depends_on = [
+   depends_on = [
     aws_cloudwatch_log_group.feast,
   ]
 
@@ -53,11 +56,11 @@ resource "aws_lambda_permission" "lambda" {
 resource "null_resource" "build_lambda_function" {
   provisioner "local-exec" {
     working_dir = "./"
-    command     = "yarn workspace feast-lambda build"
+    command     = "rm ./../packages/lambda/dist/function.zip && yarn workspace feast-lambda build"
   }
 
   triggers = {
-    source_code_changed = filebase64sha256("../packages/lambda/src/index.ts")
+    source_code_changed = filebase64sha256("../packages/lambda/package.json")
   }
 }
 

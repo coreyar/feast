@@ -1,10 +1,12 @@
 {
   "name": "feast-lambda",
-  "version": "0.1.0",
+  "version": "0.1.0-a1",
   "private": true,
+  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "script:build-dependency-layer": "yarn install --prod; ./scripts/build-dependency-layer.sh; yarn install;",
+    "build": "tsc && cp package.json dist/function/package.json",
+    "script:build-dependency-layer": "./scripts/build-dependency-layer.sh",
     "test": "jest",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
   },

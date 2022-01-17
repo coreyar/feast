@@ -3,6 +3,7 @@
     "compilerOptions": {
         "outDir": "dist/function",
         "isolatedModules": false,
+        "module": "commonjs",
     },
     "include": [
         "src"
