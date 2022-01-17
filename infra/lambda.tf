@@ -26,6 +26,10 @@ resource "aws_lambda_function" "lambda" {
   timeout     = "30"
   memory_size = 128
 
+  depends_on = [
+    aws_cloudwatch_log_group.feast,
+  ]
+
   environment {
     variables = {
       "MONGO_DB_NAME" = local.var.mongo_db_name
@@ -66,4 +70,9 @@ resource "null_resource" "lambda_nodejs_layer" {
   triggers = {
     dependencies_changed = filebase64sha256("../yarn.lock")
   }
+}
+
+resource "aws_cloudwatch_log_group" "feast" {
+  name              = "/aws/lambda/${local.var.project_name}"
+  retention_in_days = 14
 }

@@ -53,12 +53,17 @@ resource "aws_iam_policy" "lambda_policy" {
         "cloudwatch:PutMetricData",
         "kms:*"
       ],
-      "Resource": aws_lambda_function.lambda.arn
+      "Resource": "*"
     }]
   })
 }
 
 resource "aws_iam_user_policy_attachment" "lambda_attachment" {
   user       = aws_iam_user.deployment.name
+  policy_arn = aws_iam_policy.lambda_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_attachment" {
+  role       = aws_iam_role.manage_lambas.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
